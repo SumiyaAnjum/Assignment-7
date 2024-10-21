@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsPulse - Home</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        zoom: 1.5;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .nav-menu {
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+        background-color: #333;
+      }
+
+      .nav-menu li {
+        padding: 10px;
+      }
+
+      .nav-menu a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .intro {
+        text-align: center;
+        padding: 50px;
+      }
+
+      .cta-buttons .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        text-decoration: none;
+        margin: 10px;
+      }
+
+      .posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .post {
+        width: 300px;
+        margin: 20px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .post img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .weather-info {
+        text-align: center;
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">NewsPulse</div>
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="./register.html">Register</a></li>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="./dashboard.html">Dashboard</a></li>
+          <li><a href="./about.html">About Us</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="weather-info"></div> <!-- Weather will be injected here -->
+
+    <main>
+      <section class="intro">
+        <h1>Welcome to NewsPulse</h1>
+        <p>Your source for the latest and most reliable news updates.</p>
+        <section class="cta-buttons">
+          <a class="btn" href="./register.html">Register</a>
+          <a class="btn" href="./login.html">Login</a>
+        </section>
+      </section>
+
+      <section class="posts">
+        <!-- News posts will be injected here -->
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 NewsPulse. All rights reserved.</p>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const newsSection = document.querySelector('.posts');
+        const weatherContainer = document.querySelector('.weather-info');
+
+        // Fetch news from NewsAPI
+        fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=e941cfe3200b480db39e53fd8496425e')
+          .then(response => response.json())
+          .then(data => {
+            newsSection.innerHTML = ''; // Clear existing posts
+            data.articles.forEach(article => {
+              const post = `
+                <div class="post">
+                  <img src="${article.urlToImage}" alt="${article.title}">
+                  <h2>${article.title}</h2>
+                  <p>${article.description}</p>
+                </div>
+              `;
+              newsSection.innerHTML += post;
+            });
+          })
+          .catch(error => console.error('Error fetching news:', error));
+
+        // Fetch weather from OpenWeatherMap
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=New York&appid=c89009127654f08fcddce0ec3a5d81bb&units=metric')
+          .then(response => response.json())
+          .then(data => {
+            weatherContainer.innerHTML = `
+              <p>Weather in ${data.name}: ${data.weather[0].description}, ${data.main.temp}°C</p>
+            `;
+          })
+          .catch(error => console.error('Error fetching weather:', error));
+
+        // Optional: Font size adjustment for smaller screens
+        function adjustFontSize() {
+          document.body.style.fontSize = window.innerWidth < 600 ? '14px' : '16px';
+        }
+        adjustFontSize();
+        window.addEventListener('resize', adjustFontSize);
+      });
+    </script>
+  </body>
+</html>

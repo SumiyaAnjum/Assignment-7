@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NewsPulse</title>
+    <style>
+      /* General Styles */
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          background-color: #F0F4F8; /* Soft Pastel Blue */
+      }
+      header {
+          background: #333;
+          color: #fff;
+          width: 170px; /* Fixed width for the sidebar */
+          position: fixed; /* Fix to the side */
+          height: 100%; /* Full height */
+      }
+      
+      nav {
+          display: flex;
+          flex-direction: column; /* Vertical alignment */
+          align-items: flex-start; /* Align items to the start */
+          padding: 20px;
+      }
+      
+      .logo {
+          font-size: 24px;
+          margin-bottom: 20px; /* Space below the logo */
+      }
+      
+      .nav-menu {
+          list-style-type: none;
+          padding: 0;
+      }
+      
+      .nav-menu li {
+          margin: 10px 0; /* Space between items */
+      }
+      
+      .nav-menu a {
+          color: white;
+          text-decoration: none;
+          padding: 10px; /* Padding for clickable area */
+          display: block; /* Make the link fill the entire space */
+      }
+      
+      .nav-menu a:hover {
+          background: #555; /* Background color on hover */
+      }
+      
+      /* Main content styling */
+      main {
+          margin-left: 220px; /* Leave space for the sidebar */
+          padding: 20px; /* Add padding for the main content */
+      }
+      
+      .intro {
+          margin-bottom: 20px; /* Space below the intro section */
+      }
+      
+      .posts {
+          display: flex;
+          flex-direction: column; /* Vertical layout of posts */
+      }
+      
+      .post {
+          margin-bottom: 20px; /* Space between posts */
+      }
+      
+      /* Responsive styles */
+      @media (max-width: 768px) {
+          header {
+              position: static; /* Revert to static positioning */
+              width: 100%; /* Full width on small screens */
+              height: auto; /* Adjust height */
+          }
+      
+          main {
+              margin-left: 0; /* No margin for the main content */
+          }
+      }
+      
+      /* Main Content Styles */
+      main {
+          flex: 1;
+          padding: 50px 20px;
+          background-color: #FFFFFF; /* White */
+          color: #00796B; /* Teal */
+          background-image: url('https://img.freepik.com/premium-vector/abstract-white-background-with-grey-hitech-polygonal-business-corporate-concept_249611-8886.jpg?w=360'); /* Replace with your image path */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          text-align: center;
+      }
+      
+      .intro h1 {
+          font-size: 2.5em;
+          margin-bottom: 20px;
+          color: #00796B; /* Teal */
+      }
+      
+      .intro p {
+          font-size: 1.2em;
+          margin-bottom: 30px;
+          color: #00796B; /* Teal */
+      }
+      
+      .buttons {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+      }
+      
+      .buttons .btn {
+          padding: 10px 20px;
+          text-decoration: none;
+          color: #FFFFFF; /* White */
+          background-color: #004D40; /* Dark Teal */
+          border-radius: 5px;
+          display: inline-block;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.3s ease; /* Added transition */
+      }
+      
+      .buttons .btn:hover {
+          opacity: 0.8;
+      }
+      
+      footer {
+          background-color: #004D40; /* Dark Teal */
+          color: #FFFFFF; /* White */
+          text-align: center;
+          padding: 10px 0;
+          position: relative;
+          width: 100%;
+      }
+      
+      footer p {
+          margin: 0;
+          font-size: 0.9em;
+      }
+      
+      /* Form Section Styles */
+      .form-section {
+          max-width: 800px;
+          margin: auto;
+          padding: 15px;
+      }
+      
+      form {
+          max-width: 600px;
+          margin: auto;
+      }
+      
+      fieldset {
+          border: 1px solid #B2DFDB; /* Light Teal */
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      legend {
+          font-size: 1.2em;
+          margin-bottom: 10px;
+          padding: 0 10px;
+          color: #00796B; /* Teal */
+      }
+      
+      label {
+          display: block;
+          margin: 10px 0 5px;
+          text-align: left; /* Align labels to the left */
+      }
+      
+      input, textarea, select {
+          width: 95%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #B2DFDB; /* Light Teal */
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: border-color 0.3s ease; /* Added transition */
+      }
+      
+      textarea {
+          resize: vertical;
+      }
+      
+      button {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          color: #FFFFFF; /* White */
+          cursor: pointer;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.3s ease; /* Added transition */
+      }
+      
+      button:hover {
+          opacity: 0.8;
+      }
+      
+      .btn {
+          background-color: #004D40; /* Dark Teal */
+      }
+      
+      /* Validation Error Styles */
+      input:invalid {
+          border: 2px solid #E57373; /* Light Red */
+      }
+      
+      input:valid {
+          border: 2px solid #81C784; /* Light Green */
+      }
+      
+      input:focus:invalid {
+          outline: none;
+          border-color: #E57373; /* Light Red */
+      }
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">NewsPulse</div>
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="./register.html">Register</a></li>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="./dashboard.html">Dashboard</a></li>
+          <li><a href="./about.html">About Us</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="form-section">
+        <h1>Login</h1>
+        <form id="loginForm">
+          <fieldset>
+            <legend>Login to NewsPulse</legend>
+            <label for="loginemail">Email:</label>
+            <input type="email" id="loginemail" name="loginemail" required>
+            <div class="error-message"></div>
+            <label for="loginpassword">Password:</label>
+            <input type="password" id="loginpassword" name="loginpassword" required>
+            <button class="btn" type="submit">Login</button>
+          </fieldset>
+        </form>
+        <div id="successMessage"></div>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 NewsPulse. All rights reserved.</p>
+    </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const loginForm = document.querySelector('#loginForm');
+        const loginEmail = document.querySelector('#loginemail');
+        const loginPassword = document.querySelector('#loginpassword');
+        const successMessage = document.querySelector('#successMessage');
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', (event) => {
+                let valid = true;
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+                if (!validateEmail(loginEmail.value)) {
+                    if (successMessage) {
+                        successMessage.textContent = 'Incorrect email';
+                        successMessage.style.color = 'red';
+                    }
+                    valid = false;
+                }
+                if (!validateLogin(loginEmail.value, loginPassword.value)) {
+                    if (successMessage) {
+                        successMessage.textContent = 'Incorrect email or password';
+                        successMessage.style.color = 'red';
+                    }
+                    valid = false;
+                }
+
+                if (!valid) {
+                    event.preventDefault();
+                }
+            });
+        }
+
+        function validateEmail(email) {
+          return /^\S+@\S+\.\S+$/.test(email);
+        }
+
+        function validateLogin(email, password) {
+          return (email === 'user@example.com' && password === 'password');
+        }
+      });
+    </script>
+  </body>
+</html>
